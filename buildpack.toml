@@ -2,8 +2,9 @@ api = "0.7"
 
 [buildpack]
   id = "nik736/ffmpeg"
-  version = "0.0.1"
+  version = "0.0.2"
   name = "FFmpeg Buildpack"
+  homepage = "https://github.com/nik736/ffmpeg-buildpack"
   description = "Installs FFmpeg packages"
   keywords = ["ffmpeg"]
 
