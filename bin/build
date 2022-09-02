@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+start_time=$(date +%s%N)
+
+function error() {
+  echo " !     $*" >&2
+  exit 1
+}
+
+function topic() {
+  echo "-----> $*"
+}
+
+function indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
+# 1. GET ARGS
+layers_dir="$1"
+env_dir="$2/env"
+plan_path="$3"
+
+# 2. CREATE THE LAYER DIRECTORY
+ffmpeg_layer=$layers_dir/ffmpeg/bin
+mkdir -p $ffmpeg_layer
+cd $ffmpeg_layer
+
+# 3. DOWNLOAD FFMPEG
+topic "Installing FFmpeg"
+
+echo "Downloading..." | indent
+curl https://johnvansickle.com/ffmpeg/builds/ffmpeg-git-amd64-static.tar.xz -L -o ./ffmpeg.tar.xz
+
+echo "Extracting..." | indent
+tar xJf "./ffmpeg.tar.xz" --strip-components=1
+
+# 4. MAKE FFMPEG AVAILABLE DURING LAUNCH
+echo -e '[types]\nlaunch = true' > "$layers_dir/ffmpeg.toml"
+
+# 5. MAKE FFMPEG AVAILABLE TO THIS SCRIPT
+export PATH="$ffmpeg_layer":$PATH
+
+echo "Installing FFmpeg was successful" | indent
+
+end_time=$(date +%s%N)
+echo "Elapsed time: $(( $(( $end_time - $start_time )) / 1000000000 ))s" | indent
+
+exit 0
