@@ -1,15 +1,12 @@
-api = "0.7"
+api = "0.10"
 
 [buildpack]
-  id = "nik736/ffmpeg"
+  id = "btl/ffmpeg"
   version = "0.0.2"
   name = "FFmpeg Buildpack"
-  homepage = "https://github.com/nik736/ffmpeg-buildpack"
+  homepage = "https://github.com/BTLzdravtech/ffmpeg-buildpack"
   description = "Installs FFmpeg packages"
   keywords = ["ffmpeg"]
 
 [[stacks]]
-  id = "io.buildpacks.samples.stacks.bionic"
-
-[[stacks]]
-  id = "heroku-20"
+  id = "io.buildpacks.samples.stacks.jammy"
