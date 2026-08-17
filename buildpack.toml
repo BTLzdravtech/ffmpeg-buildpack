@@ -2,7 +2,7 @@ api = "0.10"
 
 [buildpack]
   id = "btl/ffmpeg"
-  version = "0.0.2"
+  version = "0.0.3"
   name = "FFmpeg Buildpack"
   homepage = "https://github.com/BTLzdravtech/ffmpeg-buildpack"
   description = "Installs FFmpeg packages"
